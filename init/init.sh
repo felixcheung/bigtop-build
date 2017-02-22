@@ -33,3 +33,7 @@ sudo -u hdfs hadoop fs -mkdir -p /user/hive/warehouse
 sudo -u hdfs hadoop fs -chmod g+x /tmp
 sudo -u hdfs hadoop fs -chmod g+x /user/hive/warehouse
 sudo /etc/init.d/hive-server2 start
+
+# spark
+# For Spark, HiveContext/SparkSession(HiveSupportEnabled) to work with Hive Metastore to read Hive tables
+cp /etc/hive/conf/hive-site.xml /etc/spark/conf/
