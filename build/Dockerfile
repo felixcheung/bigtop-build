@@ -2,7 +2,8 @@
 
 FROM centos:7
 
-# Install prerequisites - jdk, puppet, bigtop toolchain 
+# Install prerequisites - jdk 8, puppet, bigtop toolchain
+# And git clone bigtop source
 RUN yum -y upgrade && yum -y update && yum clean all && \
     yum -y install sudo curl unzip git java-1.8.0-openjdk-devel && \
     rpm -ivh https://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm && yum -y install puppet && \
