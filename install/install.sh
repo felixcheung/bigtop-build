@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # run as sudo
+if (( $EUID != 0 )); then
+    echo "Please run as root"
+    exit
+fi
 
 # add yum packages as a local repo
 yum -y install yum-utils createrepo
