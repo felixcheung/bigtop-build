@@ -1,3 +1,10 @@
+#!/bin/bash
+
+# run as sudo
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit 1
+fi
 
 # namenode, yarn
 /etc/init.d/hadoop-hdfs-namenode init
