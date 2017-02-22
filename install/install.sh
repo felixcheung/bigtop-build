@@ -1,16 +1,23 @@
 #!/bin/bash
 
 # run as sudo
-if (( $EUID != 0 )); then
-    echo "Please run as root"
-    exit
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit 1
 fi
+
+if [ $# -ne 1 ]; then
+  echo $0: usage: install.sh fullpathtoyumlocalrepo
+  exit 1
+fi
+
+localrepopath=$1
 
 # add yum packages as a local repo
 yum -y install yum-utils createrepo
-createrepo /home/adminuser/yum/
+createrepo $localrepopath
 echo "gpgcheck=0" >> /etc/yum.conf
-yum-config-manager --add-repo file:///home/adminuser/yum
+yum-config-manager --add-repo file://$localrepopath
 
 # add bigtop release as a repo to get bigtop-utils
 wget -O /etc/yum.repos.d/bigtop.repo http://archive.apache.org/dist/bigtop/bigtop-1.1.0/repos/centos7/bigtop.repo
