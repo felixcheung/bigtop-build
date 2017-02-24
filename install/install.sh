@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script sets up a local repo on the RPM packages built and installs them.
+
 # run as sudo
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
@@ -23,7 +25,7 @@ yum-config-manager --add-repo file://$localrepopath
 wget -O /etc/yum.repos.d/bigtop.repo http://archive.apache.org/dist/bigtop/bigtop-1.1.0/repos/centos7/bigtop.repo
 
 # install
-yum install hadoop* spark* hbase* hue* zookeeper* pig* oozie* kafka*
+yum install hadoop* spark* hbase* hue* zookeeper* pig* oozie* kafka* mahout*
 
 # hive-hbase conflicts with hive
 #  file /usr/lib/hive/lib/hive-hbase-handler-1.2.1.jar from install of hive-hbase-1.2.1-1.el7.centos.noarch conflicts with file from package hive-1.2.1-1.el7.centos.noarch
