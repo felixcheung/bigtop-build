@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script should be run on the machine with the RPM images installed.
+# This script should be run on the machine with the RPM packages installed.
 
 # run as sudo
 if [ "$EUID" -ne 0 ]
