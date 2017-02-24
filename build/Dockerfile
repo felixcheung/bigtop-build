@@ -16,5 +16,5 @@ RUN yum -y upgrade && yum -y update && yum clean all && \
 RUN . /etc/profile.d/bigtop.sh && \
     cd bigtop && \
     ./gradlew alluxio-rpm flume-rpm hadoop-rpm hbase-rpm hive-rpm hue-rpm kafka-rpm kite-rpm && \
-    ./gradlew oozie-rpm phoenix-rpm pig-rpm spark-rpm sqoop-rpm sqoop2-rpm tez-rpm zeppelin-rpm zookeeper-rpm && \
+    ./gradlew mahout-rpm oozie-rpm phoenix-rpm pig-rpm spark-rpm sqoop-rpm sqoop2-rpm tez-rpm zeppelin-rpm zookeeper-rpm && \
     echo '*DONE*'
