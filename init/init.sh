@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This script should be run on the machine with the RPM images installed.
+
 # run as sudo
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
