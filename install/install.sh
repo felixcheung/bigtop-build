@@ -22,7 +22,7 @@ echo "gpgcheck=0" >> /etc/yum.conf
 yum-config-manager --add-repo file://$localrepopath
 
 # add bigtop release as a repo to get bigtop-utils
-wget -O /etc/yum.repos.d/bigtop.repo http://archive.apache.org/dist/bigtop/bigtop-1.1.0/repos/centos7/bigtop.repo
+wget -O /etc/yum.repos.d/bigtop.repo http://archive.apache.org/dist/bigtop/bigtop-1.1.0/repos/centos6/bigtop.repo
 
 # install
 yum install hadoop* spark* hbase* hue* zookeeper* pig* oozie* kafka* mahout*
