@@ -24,14 +24,12 @@ RUN . /etc/profile.d/bigtop.sh && \
 # Build Ambari RPMs
 RUN . /etc/profile.d/bigtop.sh && \
     mkdir src && cd src && \
-    git clone https://github.com/apache/ambari.git && \
-    git clone https://github.com/odpi/bigtop.git && \
-    cp -a bigtop/bigtop-packages/src/common/ambari/ODPi ambari/ambari-server/src/main/resources/stacks && \
+    git clone -b trunks2 https://github.com/felixcheung/ambari.git && \
     export _JAVA_OPTIONS="-Xmx2048m -XX:MaxPermSize=512m -Djava.awt.headless=true" && \
     cd ambari && \
     mvn versions:set -DnewVersion=2.4.2.0.0 && \
     pushd ambari-metrics && \
     mvn versions:set -DnewVersion=2.4.2.0.0 && \
     popd && \
-    mvn -B clean install package rpm:rpm -DnewVersion=2.4.2.0.0 -Dstack.distribution=ODPi -DskipTests -Drat.skip -Dpython.ver="python >= 2.6" && \
+    mvn -B clean install package rpm:rpm -DnewVersion=2.4.2.0.0 -Dstack.distribution=BIGTOP/1.0 -DskipTests -Drat.skip -Dpython.ver="python >= 2.6" && \
     echo '*Ambari DONE*'
