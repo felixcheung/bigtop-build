@@ -4,7 +4,7 @@
 - Create a user defined network:
    `docker network create --driver bridge cluster`
 - To start the headnode:
-  `docker run --network=cluster cluster`
+  `docker run --network=cluster --rm -p 8080:8080 cluster`
   Mark the hostname of the headnode. You need it to start the workernode.
 - To start the workernode:
   `docker run --network=cluster cluster <hostname of the headnode>`
