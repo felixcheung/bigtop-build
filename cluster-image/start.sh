@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo 'hostname is: '`hostname`
+
 SERVER_FQDN=$1
 
 if [[ -z $SERVER_FQDN ]]; then
