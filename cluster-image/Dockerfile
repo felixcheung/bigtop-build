@@ -23,7 +23,9 @@ RUN wget -O /etc/yum.repos.d/bigtop.repo http://archive.apache.org/dist/bigtop/b
     echo "gpgcheck=0" >> /etc/yum.conf && \
     yum-config-manager --add-repo http://sparkpreviewrelease.blob.core.windows.net/rel/bigtop-build-el6-repo && \
     yum install ambari-server ambari-agent -y && \
-    ambari-server setup -s
+    ambari-server setup -s && \
+    echo 'javas=(/usr/jdk64/*)' >> /etc/profile.d/java.sh && \
+    echo 'export JAVA_HOME=${javas[@]: -1}' >> /etc/profile.d/java.sh
     
 ADD start.sh /tmp/start.sh
 
