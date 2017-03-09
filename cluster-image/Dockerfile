@@ -1,4 +1,4 @@
-FROM centos:6.7
+FROM centos:6
 
 EXPOSE 22 1024-65534
 
