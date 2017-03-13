@@ -7,7 +7,7 @@ ENV TINI_VERSION v0.14.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 
 # Platform and SSH stuff.
-RUN yum install -y openssh-server postgresql-server tar wget which sudo yum-utils && \
+RUN yum install -y openssh-server openssh-clients postgresql-server tar wget which sudo yum-utils && \
     /usr/bin/ssh-keygen -f /etc/ssh/ssh_host_rsa_key -b 2048 -N '' -t rsa && \
     /usr/bin/ssh-keygen -f /etc/ssh/ssh_host_dsa_key -b 1024 -N '' -t dsa && \
     chmod 444 /root/.ssh/authorized_keys && \
