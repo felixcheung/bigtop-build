@@ -29,7 +29,11 @@ RUN wget -O /etc/yum.repos.d/bigtop.repo http://archive.apache.org/dist/bigtop/b
     ambari-server setup -s && \
     echo 'javas=(/usr/jdk64/*)' >> /etc/profile.d/java.sh && \
     echo 'export JAVA_HOME=${javas[@]: -1}' >> /etc/profile.d/java.sh
-    
+
 ADD start.sh /tmp/start.sh
+
+# Uncomment to test local changes.
+#ADD services /var/lib/ambari-server/resources/stacks/BIGTOP/1.0/services
+#ADD services /var/lib/ambari-agent/cache/stacks/BIGTOP/1.0/services
 
 ENTRYPOINT ["/tini", "-g", "--", "/tmp/start.sh"]
