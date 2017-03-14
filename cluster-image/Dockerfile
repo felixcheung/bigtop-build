@@ -1,7 +1,5 @@
 FROM centos:6
 
-EXPOSE 22 1024-65534
-
 ADD authorized_keys /root/.ssh/authorized_keys
 ENV TINI_VERSION v0.14.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
@@ -35,5 +33,7 @@ ADD start-node.sh /tmp/start-node.sh
 # Uncomment to test local changes.
 #ADD services /var/lib/ambari-server/resources/stacks/BIGTOP/1.0/services
 #ADD services /var/lib/ambari-agent/cache/stacks/BIGTOP/1.0/services
+
+EXPOSE 22 4040 4041 8080 8088 18080
 
 ENTRYPOINT ["/tini", "-g", "--", "/tmp/start-node.sh"]
