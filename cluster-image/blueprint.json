@@ -1,0 +1,72 @@
+{
+  "configurations": [],
+  "host_groups": [
+    {
+      "name": "headnode",
+      "components": [
+        {
+          "name": "HISTORYSERVER"
+        },
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "RESOURCEMANAGER"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "SECONDARY_NAMENODE"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "SPARK2_JOBHISTORYSERVER"
+        },
+        {
+          "name": "SPARK2_CLIENT"
+        }
+      ],
+      "cardinality": "1"
+    },
+    {
+      "name": "workernode",
+      "components": [
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "DATANODE"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "SPARK2_CLIENT"
+        }
+      ]
+    }
+  ],
+  "Blueprints": {
+    "blueprint_name": "BIGTOP-1.0",
+    "stack_name": "BIGTOP",
+    "stack_version": "1.0"
+  }
+}

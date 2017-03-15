@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  headnode:
+    build: .
+    image: cluster-node
+    container_name: headnode
+    ports:
+      - "4040:4040"
+      - "4041:4041"
+      - "8080:8080"
+      - "8088:8088"
+      - "18080:18080"
+    networks:
+      - net
+
+  workernode:
+    image: cluster-node
+    command: headnode
+    depends_on:
+      - headnode
+    networks:
+      - net
+
+networks:
+  net:
