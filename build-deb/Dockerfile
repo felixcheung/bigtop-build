@@ -4,6 +4,7 @@ FROM ubuntu:16.04
  
 # Install prerequisites - jdk 8, puppet, puppetlabs-apt, bigtop toolchain
 # And git clone bigtop source
+# lsb-release is required for puppetlabs-apt, puppetlabs-apt is required to get puppet in toolchain to work
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
     apt-get install --no-install-recommends -y curl wget sudo unzip git lsb-release && \
     apt-get install --no-install-recommends -y libssl-dev openjdk-8-jdk && \
