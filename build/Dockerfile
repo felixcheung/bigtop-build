@@ -15,6 +15,7 @@ RUN yum -y upgrade && yum -y update && yum clean all && \
 
 # Setup environment and build RPMs
 # ./gradlew *-rpm command is generally restartable - it will only build if not complete/cached (unless you run ./gradlew clean)
+# RPMs will be under /bigtop/output
 RUN . /etc/profile.d/bigtop.sh && \
     cd bigtop && \
     ./gradlew alluxio-rpm flume-rpm hadoop-rpm hbase-rpm hive-rpm hue-rpm kafka-rpm kite-rpm && \
@@ -22,7 +23,7 @@ RUN . /etc/profile.d/bigtop.sh && \
     echo '*Bigtop DONE*'
 
 # Build Ambari RPMs
-# RPMs will be under /bigtop/output
+# RPMs will be under /ambari/ambari-*/target
 RUN . /etc/profile.d/bigtop.sh && \
     mkdir src && cd src && \
     git clone -b trunks2 https://github.com/felixcheung/ambari.git && \
