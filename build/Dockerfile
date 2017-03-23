@@ -22,6 +22,7 @@ RUN . /etc/profile.d/bigtop.sh && \
     echo '*Bigtop DONE*'
 
 # Build Ambari RPMs
+# RPMs will be under /bigtop/output
 RUN . /etc/profile.d/bigtop.sh && \
     mkdir src && cd src && \
     git clone -b trunks2 https://github.com/felixcheung/ambari.git && \
