@@ -15,13 +15,21 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
     puppet module install puppetlabs-apt && \
     # preinstalling packages since bigtop toolchain fails to install it
     apt-get install --no-install-recommends -y asciidoc && \
-    git clone -b imagebuild https://github.com/felixcheung/bigtop.git && \
+    git clone -b imagebuild2 https://github.com/felixcheung/bigtop.git && \
     cd bigtop && \
     ./gradlew toolchain
 
 # Setup environment and build Debs
+# Debs will be under /bigtop/output/{project}
 RUN . /etc/profile.d/bigtop.sh && \
     cd bigtop && \
     ./gradlew alluxio-deb flume-deb hadoop-deb hbase-deb hive-deb hue-deb kafka-deb kite-deb && \
     ./gradlew mahout-deb oozie-deb phoenix-deb pig-deb spark-deb sqoop-deb sqoop2-deb tez-deb zeppelin-deb zookeeper-deb && \
     echo '*Bigtop DONE*'
+
+# Setup environment and build Debs
+# Debs will be under /bigtop/output/ambari
+RUN . /etc/profile.d/bigtop.sh && \
+    cd bigtop && \
+    ./gradlew ambari-deb && \
+    echo '*Ambari DONE*'
