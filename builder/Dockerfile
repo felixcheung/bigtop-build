@@ -1,6 +1,8 @@
 # Docker image to build Hadoop and Big Data projects with Apache Bigtop
 
 FROM ubuntu:16.04
+
+RUN useradd -u 1000 hdiuser && mkdir /home/hdiuser && chown hdiuser:hdiuser /home/hdiuser
  
 # Install prerequisites - jdk 8, puppet, puppetlabs-apt, bigtop toolchain
 # And git clone bigtop source
@@ -18,5 +20,7 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
     git clone -b imagebuild2 https://github.com/felixcheung/bigtop.git && \
     cd bigtop && \
     ./gradlew toolchain
+
+USER hdiuser
 
 CMD ["echo", "HDI BigTop builder"]
