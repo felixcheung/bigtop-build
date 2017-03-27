@@ -2,7 +2,11 @@
 
 FROM ubuntu:16.04
 
-RUN useradd -u 1000 hdiuser && mkdir /home/hdiuser && chown hdiuser:hdiuser /home/hdiuser
+RUN useradd -u 1000 hdiuser && \
+    mkdir /home/hdiuser && \
+    chown hdiuser:hdiuser /home/hdiuser && \
+    usermod -aG sudo hdiuser && \
+    echo "hdiuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
  
 # Install prerequisites - jdk 8, puppet, puppetlabs-apt, bigtop toolchain
 # And git clone bigtop source
