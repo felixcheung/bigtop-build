@@ -2,12 +2,9 @@
 
 FROM ubuntu:16.04
 
-RUN useradd -u 1000 hdiuser && \
-    mkdir /home/hdiuser && \
-    chown hdiuser:hdiuser /home/hdiuser && \
-    usermod -aG sudo hdiuser && \
-    echo "hdiuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
- 
+# Must do this before building toolchain. toolchain creates user jerkins.
+RUN useradd -u 1000 hdiuser
+
 # Install prerequisites - jdk 8, puppet, puppetlabs-apt, bigtop toolchain
 # And git clone bigtop source
 # lsb-release is required for puppetlabs-apt, puppetlabs-apt is required to get puppet in toolchain to work
@@ -25,11 +22,22 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
     cd bigtop && \
     ./gradlew toolchain
 
+# Add hdiuser to sudoers.
+RUN mkdir /home/hdiuser && \
+    chown hdiuser:hdiuser /home/hdiuser && \
+    usermod -aG sudo hdiuser && \
+    echo "hdiuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Import GPG key for signing deb packages.
 ADD hdiapt.private.gpg.key /home/hdiuser
-RUN gpg --import hdiapt.private.gpg.key && \
+RUN cd /home/hdiuser && \
+    gpg --import hdiapt.private.gpg.key && \
     APT_SIGNING_GPG_KEY=$(gpg --with-colon hdiapt.private.gpg.key | grep ssb | cut -d ":" -f 5) && \
-    echo "export APT_SIGNING_GPG_KEY=$APT_SIGNING_GPG_KEY" >> /etc/environment
+    echo "export APT_SIGNING_GPG_KEY=$APT_SIGNING_GPG_KEY" >> /etc/profile.d/apt-signing-gpg-key.sh
 
 USER hdiuser
+
+# Use sudo to load /etc/profile.d
+ENTRYPOINT ["sudo", "su", "-l", "hdiuser"]
 
 CMD ["echo", "HDI BigTop builder"]
