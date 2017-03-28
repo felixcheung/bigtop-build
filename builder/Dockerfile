@@ -9,27 +9,27 @@ RUN useradd -u 1000 hdiuser
 # And git clone bigtop source
 # lsb-release is required for puppetlabs-apt, puppetlabs-apt is required to get puppet in toolchain to work
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
-    apt-get install --no-install-recommends -y \
+    apt-get install -y --no-install-recommends \
       asciidoc \
       curl \
       git \
       libssl-dev \
       lsb-release \
       openjdk-8-jdk \
-      python-pip \
       sudo \
       unzip \
       wget && \
     # Install blobxfer to publish APT repo.
+    apt-get install -y python-pip && \
     sudo pip install blobxfer && \
     wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb && \
     dpkg -i puppetlabs-release-pc1-xenial.deb && \
     apt-get -y update && \
     apt-get install --no-install-recommends -y puppet && \
-    puppet module install puppetlabs-apt && \
-    # Preinstalling packages since bigtop toolchain fails to install them.
-    apt-get install --no-install-recommends -y && \
-    git clone -b imagebuild2 https://github.com/felixcheung/bigtop.git && \
+    puppet module install puppetlabs-apt
+
+# Preinstalling packages since bigtop toolchain fails to install them.
+RUN git clone -b imagebuild2 https://github.com/felixcheung/bigtop.git && \
     cd bigtop && \
     ./gradlew toolchain
 
@@ -42,7 +42,7 @@ RUN mkdir /home/hdiuser && \
 # Import GPG key for signing deb packages.
 ADD hdiapt.private.gpg.key /home/hdiuser
 RUN cd /home/hdiuser && \
-    gpg --import hdiapt.private.gpg.key && \
+    sudo -Hu hdiuser gpg --import hdiapt.private.gpg.key && \
     echo "export APT_SIGNING_GPG_KEY="$(gpg --with-colon hdiapt.private.gpg.key | grep ssb | cut -d ":" -f 5) >> /etc/profile.d/apt-signing-gpg-key.sh
 
 USER hdiuser
