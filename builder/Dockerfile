@@ -16,9 +16,11 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
       libssl-dev \
       lsb-release \
       openjdk-8-jdk \
+      rsync \
       sudo \
       unzip \
-      wget && \
+      wget \
+      xmlto && \
     # Install azure cli and blobxfer to publish APT repo.
     apt-get install -y python-pip && \
     sudo pip -q install azure-cli blobxfer && \
