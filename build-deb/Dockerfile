@@ -7,7 +7,7 @@ FROM ubuntu:16.04
 # lsb-release is required for puppetlabs-apt, puppetlabs-apt is required to get puppet in toolchain to work
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
     apt-get install --no-install-recommends -y curl wget sudo unzip git lsb-release && \
-    apt-get install --no-install-recommends -y libssl-dev openjdk-8-jdk xmlto && \
+    apt-get install --no-install-recommends -y libssl-dev openjdk-8-jdk xmlto rsync && \
     wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb && \
     dpkg -i puppetlabs-release-pc1-xenial.deb && \
     apt-get update && \
