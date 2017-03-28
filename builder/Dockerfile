@@ -9,16 +9,16 @@ RUN useradd -u 1000 hdiuser
 # And git clone bigtop source
 # lsb-release is required for puppetlabs-apt, puppetlabs-apt is required to get puppet in toolchain to work
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
-    apt-get install --no-install-recommends -y && \
-      asciidoc && \
-      curl && \
-      git && \
-      libssl-dev && \
-      lsb-release && \
-      openjdk-8-jdk && \
-      python-pip && \
-      sudo && \
-      unzip && \
+    apt-get install --no-install-recommends -y \
+      asciidoc \
+      curl \
+      git \
+      libssl-dev \
+      lsb-release \
+      openjdk-8-jdk \
+      python-pip \
+      sudo \
+      unzip \
       wget && \
     # Install blobxfer to publish APT repo.
     sudo pip install blobxfer && \
