@@ -9,15 +9,26 @@ RUN useradd -u 1000 hdiuser
 # And git clone bigtop source
 # lsb-release is required for puppetlabs-apt, puppetlabs-apt is required to get puppet in toolchain to work
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
-    apt-get install --no-install-recommends -y curl wget sudo unzip git lsb-release && \
-    apt-get install --no-install-recommends -y libssl-dev openjdk-8-jdk && \
+    apt-get install --no-install-recommends -y && \
+      asciidoc && \
+      curl && \
+      git && \
+      libssl-dev && \
+      lsb-release && \
+      openjdk-8-jdk && \
+      python-pip && \
+      sudo && \
+      unzip && \
+      wget && \
+    # Install blobxfer to publish APT repo.
+    sudo pip install blobxfer && \
     wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb && \
     dpkg -i puppetlabs-release-pc1-xenial.deb && \
     apt-get -y update && \
     apt-get install --no-install-recommends -y puppet && \
     puppet module install puppetlabs-apt && \
-    # preinstalling packages since bigtop toolchain fails to install it
-    apt-get install --no-install-recommends -y asciidoc && \
+    # Preinstalling packages since bigtop toolchain fails to install them.
+    apt-get install --no-install-recommends -y && \
     git clone -b imagebuild2 https://github.com/felixcheung/bigtop.git && \
     cd bigtop && \
     ./gradlew toolchain
