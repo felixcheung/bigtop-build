@@ -25,6 +25,11 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
     cd bigtop && \
     ./gradlew toolchain
 
+ADD hdiapt.private.gpg.key /home/hdiuser
+RUN gpg --import hdiapt.private.gpg.key && \
+    APT_SIGNING_GPG_KEY=$(gpg --with-colon hdiapt.private.gpg.key | grep ssb | cut -d ":" -f 5) && \
+    echo "export APT_SIGNING_GPG_KEY=$APT_SIGNING_GPG_KEY" >> /etc/environment
+
 USER hdiuser
 
 CMD ["echo", "HDI BigTop builder"]
