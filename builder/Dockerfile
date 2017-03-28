@@ -32,8 +32,7 @@ RUN mkdir /home/hdiuser && \
 ADD hdiapt.private.gpg.key /home/hdiuser
 RUN cd /home/hdiuser && \
     gpg --import hdiapt.private.gpg.key && \
-    APT_SIGNING_GPG_KEY=$(gpg --with-colon hdiapt.private.gpg.key | grep ssb | cut -d ":" -f 5) && \
-    echo "export APT_SIGNING_GPG_KEY=$APT_SIGNING_GPG_KEY" >> /etc/profile.d/apt-signing-gpg-key.sh
+    echo "export APT_SIGNING_GPG_KEY="$(gpg --with-colon hdiapt.private.gpg.key | grep ssb | cut -d ":" -f 5) >> /etc/profile.d/apt-signing-gpg-key.sh
 
 USER hdiuser
 
