@@ -7,7 +7,7 @@ FROM ubuntu:16.04
 # lsb-release is required for puppetlabs-apt, puppetlabs-apt is required to get puppet in toolchain to work
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
     apt-get install --no-install-recommends -y curl wget sudo unzip git lsb-release && \
-    apt-get install --no-install-recommends -y libssl-dev openjdk-8-jdk && \
+    apt-get install --no-install-recommends -y libssl-dev openjdk-8-jdk xmlto && \
     wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb && \
     dpkg -i puppetlabs-release-pc1-xenial.deb && \
     apt-get update && \
@@ -21,9 +21,10 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
 
 # Setup environment and build Debs
 # Debs will be under /bigtop/output/{project}
+# Remove for now as they don't work: hue-deb 
 RUN . /etc/profile.d/bigtop.sh && \
     cd bigtop && \
-    ./gradlew alluxio-deb flume-deb hadoop-deb hbase-deb hive-deb hue-deb kafka-deb kite-deb && \
+    ./gradlew alluxio-deb flume-deb hadoop-deb hbase-deb hive-deb kafka-deb kite-deb && \
     ./gradlew mahout-deb oozie-deb phoenix-deb pig-deb spark-deb sqoop-deb sqoop2-deb tez-deb zeppelin-deb zookeeper-deb && \
     echo '*Bigtop DONE*'
 
