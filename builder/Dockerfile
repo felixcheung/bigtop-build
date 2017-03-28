@@ -13,7 +13,7 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
     apt-get install --no-install-recommends -y libssl-dev openjdk-8-jdk && \
     wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb && \
     dpkg -i puppetlabs-release-pc1-xenial.deb && \
-    apt-get update && \
+    apt-get -y update && \
     apt-get install --no-install-recommends -y puppet && \
     puppet module install puppetlabs-apt && \
     # preinstalling packages since bigtop toolchain fails to install it
@@ -38,6 +38,6 @@ RUN cd /home/hdiuser && \
 USER hdiuser
 
 # Use sudo to load /etc/profile.d
-ENTRYPOINT ["sudo", "su", "-l", "hdiuser"]
+ENTRYPOINT ["sudo", "-i", "-u", "hdiuser"]
 
 CMD ["echo", "HDI BigTop builder"]
