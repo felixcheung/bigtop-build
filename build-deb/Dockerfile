@@ -21,11 +21,11 @@ RUN apt-get -y update && apt-get -y upgrade && apt-get -y clean && \
 
 # Setup environment and build Debs
 # Debs will be under /bigtop/output/{project}
-# Remove for now as they don't work: hue-deb 
+# Remove for now as they don't work: hue-deb zeppelin-deb 
 RUN . /etc/profile.d/bigtop.sh && \
     cd bigtop && \
     ./gradlew alluxio-deb flume-deb hadoop-deb hbase-deb hive-deb kafka-deb kite-deb && \
-    ./gradlew mahout-deb oozie-deb phoenix-deb pig-deb spark-deb sqoop-deb sqoop2-deb tez-deb zeppelin-deb zookeeper-deb && \
+    ./gradlew mahout-deb oozie-deb phoenix-deb pig-deb spark-deb sqoop-deb sqoop2-deb tez-deb zookeeper-deb && \
     echo '*Bigtop DONE*'
 
 # Setup environment and build Debs
