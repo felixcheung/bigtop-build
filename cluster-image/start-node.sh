@@ -5,7 +5,7 @@ echo 'hostname is: '`hostname`
 SERVER_FQDN=$1
 
 if [[ -z $SERVER_FQDN ]]; then
-  ambari-server start &
+  ambari-server start --stack BIGTOP &
 else
   ambari-agent reset $SERVER_FQDN
 fi
