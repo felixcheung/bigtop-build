@@ -32,9 +32,6 @@
           "name": "MAPREDUCE2_CLIENT"
         },
         {
-          "name": "SPARK2_JOBHISTORYSERVER"
-        },
-        {
           "name": "SPARK2_CLIENT"
         }
       ],

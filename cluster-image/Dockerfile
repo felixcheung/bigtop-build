@@ -49,9 +49,18 @@ RUN apt-key adv --fetch-keys "$BIGTOP_REPO_URL/conf/gpg.key" && \
 
 ADD start-node.sh /tmp/start-node.sh
 
+ENV STACK_REPO_URL http://hdiapt.blob.core.windows.net/ambari-stack-77801
+
+# Comment to test local changes.
+RUN apt-key adv --fetch-keys "$STACK_REPO_URL/conf/gpg.key" && \
+    add-apt-repository "deb ${STACK_REPO_URL} bigtop contrib" && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+      ambari-wildfire-stack
+
 # Uncomment to test local changes.
-ADD stack /var/lib/ambari-server/resources/stacks/BIGTOP/1.0
-ADD stack /var/lib/ambari-agent/cache/stacks/BIGTOP/1.0
+#ADD stack /var/lib/ambari-server/resources/stacks/BIGTOP/1.0
+#ADD stack /var/lib/ambari-agent/cache/stacks/BIGTOP/1.0
 
 EXPOSE 22 4040 4041 8080 8088 18080
 
